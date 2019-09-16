@@ -3,7 +3,7 @@ PROJECT_NAME=jenkins-base
 UI_PORT=8080
 API_PORT=50000
 
-BUILD=$(or ${BUILD_NUMBER},4.1)
+BUILD=$(or ${BUILD_NUMBER},0)
 VERSION=v0.1.${BUILD}
 DATE=$(shell date)
 HOSTNAME=$(shell hostname)
