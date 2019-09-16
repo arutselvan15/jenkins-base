@@ -19,7 +19,6 @@ RUN apk -U --no-cache \
 
 # allow jenkins user to access docker 
 RUN addgroup jenkins docker
-RUN chmod 0777 /var/run/docker.sock
 
 # switch back to jenkins user
 USER jenkins

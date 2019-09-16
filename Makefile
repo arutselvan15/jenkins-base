@@ -37,7 +37,7 @@ build:
 	echo "Host=${HOSTNAME}" >> version.txt
 	cat version.txt
 
-docker-build:
+docker-build: build
 	@echo "==> Build Docker Image..."
 	docker build -t ${DOCKER_HUB}/${PROJECT_NAME}:${VERSION} .
 

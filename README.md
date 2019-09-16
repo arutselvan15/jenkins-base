@@ -4,6 +4,10 @@ Jenkins base with docker
 
 Jenkins alpine with docker container.  Jenkins master is configured to use local system docker socker to run the builds jobs.
 
+# Help
+
+You need to change the /var/run/docker.socket permission to 0777 to get it working in jenksin container.
+
 # Reference
 
     https://github.com/jenkinsci/docker/blob/master/README.md
