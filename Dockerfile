@@ -1,15 +1,25 @@
-FROM jenkins/jenkins:latest
+FROM jenkins/jenkins:alpine
 
-RUN mkdir -p /tmp/downloads
-
-# install go
 USER root
-RUN curl -sf -o /tmp/downloads/go1.11.5.linux-amd64.tar.gz -L https://dl.google.com/go/go1.11.5.linux-amd64.tar.gz
-RUN mkdir -p /opt && cd /opt && tar xfz /tmp/downloads/go1.11.5.linux-amd64.tar.gz
-RUN rm -rf /tmp/downloads/go1.11.5.linux-amd64.tar.gz
-ENV GOROOT /opt/go
-ENV GOPATH /opt/gocode
-ENV PATH="/opt/go/bin:/opt/gocode/bin:${PATH}"
+
+# Update apk repositories
+RUN echo "http://dl-2.alpinelinux.org/alpine/edge/main" > /etc/apk/repositories
+RUN echo "http://dl-2.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+RUN echo "http://dl-2.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+
+# Install the latest Docker and docker-compose binaries
+RUN apk -U --no-cache \
+    --allow-untrusted add \
+    gcc \
+    docker \
+    make \
+    curl \
+    && rm -rf /var/cache/* \
+    && mkdir /var/cache/apk
+
+# allow jenkins user to access docker 
+RUN addgroup jenkins docker
+RUN chmod 0777 /var/run/docker.sock
 
 # switch back to jenkins user
 USER jenkins

@@ -3,7 +3,7 @@ PROJECT_NAME=jenkins-base
 UI_PORT=8080
 API_PORT=50000
 
-BUILD=$(or ${BUILD_NUMBER},3)
+BUILD=$(or ${BUILD_NUMBER},4.1)
 VERSION=v0.1.${BUILD}
 DATE=$(shell date)
 HOSTNAME=$(shell hostname)
@@ -43,7 +43,7 @@ docker-build:
 
 docker-run:
 	@echo "==> Docker Run..."
-	docker run -p ${UI_PORT}:${UI_PORT} -p ${API_PORT}:${API_PORT} ${DOCKER_HUB}/${PROJECT_NAME}:${VERSION}
+	docker run -p ${UI_PORT}:${UI_PORT} -p ${API_PORT}:${API_PORT} -v /var/run/docker.sock:/var/run/docker.sock ${DOCKER_HUB}/${PROJECT_NAME}:${VERSION}
 
 docker-push:
 	@echo "==> Docker Push..."
